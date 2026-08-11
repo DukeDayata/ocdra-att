@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0.18in;
+    }
+
+    body {
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      color: #111;
+      margin: 0;
+    }
+
+    .page {
+      width: 760px;
+      margin: 0 auto;
+      transform: scale(0.96);
+      transform-origin: top center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .header img {
+      width: 650px;
+      max-width: 650px;
+    }
+
+    .no-field {
+      text-align: right;
+      font-size: 11px;
+      margin-right: 20px;
+      margin-bottom: 28px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    td, th {
+      border: 1px solid #111;
+      padding: 3px;
+      vertical-align: top;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .small {
+      font-size: 10px;
+    }
+
+    .checkbox {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      border: 2px solid #111;
+      margin-right: 22px;
+      text-align: center;
+      line-height: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .checkbox-line {
+      margin: 10px 0;
+      padding-left: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      justify-content: flex-start;
+    }
+
+    .purpose-box {
+      height: 160px;
+    }
+
+    .expense-row {
+      height: 25px;
+    }
+
+    .signature-box {
+      height: 95px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* keep name at bottom */
+      align-items: center;
+      text-align: center;
+      padding-bottom: 6px; /* small gap from bottom for signature space */
+    }
+
+    .sig-container { display:flex; align-items:stretch; }
+    .sig-left { width:10px; }
+    .sig-right { flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; }
+
+    .sig-name { font-weight:700; text-transform:uppercase; font-size:13px; }
+    .sig-pos { font-size:10px; color:#111; text-transform:uppercase; letter-spacing:0.6px; }
+
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      margin-top: 22px;
+    }
+
+    @media print {
+      .print-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <button onclick="window.print()" class="print-btn" style="margin:10px; padding:10px 20px;">
+    Print ATT Abroad
+  </button>
+
+<div class="page">
+
+  <div class="header">
+    <img src="client/public/assets/ched_header_abroad.png" alt="CHED Header - Republic of the Philippines Office of the President Commission on Higher Education Bagong Pilipinas">
+  </div>
+
+  <div class="no-field">
+    <b>No. ____________</b><br>
+    <span class="small">(NO. TO BE FILLED-UP BY HRDD, AFMS)</span>
+  </div>
+
+  <div class="title">AUTHORITY TO TRAVEL ABROAD</div>
+
+  <table>
+    <colgroup>
+      <col style="width:45%;">
+      <col style="width:22%;">
+      <col style="width:33%;">
+    </colgroup>
+
+    <tr>
+      <td colspan="2" style="height:62px;">
+        Name of Official / Employee:<br><br>
+        <div id="personnelNames" class="bold center"></div>
+      </td>
+      <td>
+        Position:<br><br>
+        <div id="personnelPositions"></div>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="height:58px;">
+        Office/Station:<br><br>
+        <div id="officeStation"></div>
+      </td>
+      <td>
+        Destination:<br><br>
+        <div id="destination"></div>
+      </td>
+      <td>
+        Period of Travel:<br><br>
+        <div id="periodOfTravel"></div>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="purpose-box">
+        Purpose of Travel:<br><br>
+        <div id="purpose" class="bold"></div>
+      </td>
+
+      <td>
+        Please Check:<br><br>
+
+        <div class="checkbox-line">
+          <span id="businessBox" class="checkbox"></span>Official Business
+        </div>
+
+        <div class="checkbox-line">
+          <span id="officialTimeBox" class="checkbox"></span>Official Time Only
+        </div>
+
+        <div class="checkbox-line">
+          <span id="personalBox" class="checkbox"></span>Personal Travel
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <colgroup>
+      <col style="width:17%;">
+      <col style="width:30%;">
+      <col style="width:17%;">
+      <col style="width:16%;">
+      <col style="width:20%;">
+    </colgroup>
+
+    <tr>
+      <td colspan="4" class="center bold" style="height:20px;">ESTIMATED EXPENSES</td>
+      <td rowspan="2">
+        Please Check One if Travel is on<br>
+        Official Business:
+      </td>
+    </tr>
+
+    <tr>
+      <td class="center bold">Airfare</td>
+      <td class="center bold">Per Diem</td>
+      <td class="center bold">Pre-travel<br>Expenses</td>
+      <td class="center bold">Total<br>Amount</td>
+    </tr>
+
+    <tr>
+      <td colspan="4" class="center">No government funds involved</td>
+      <td rowspan="6">
+        <br>
+        <div class="checkbox-line">
+          <span id="cashAdvanceBox" class="checkbox"></span>Cash Advance
+        </div>
+
+        <div class="checkbox-line">
+          <span id="reimbursementBox" class="checkbox"></span>Reimbursement
+        </div>
+      </td>
+    </tr>
+
+    <tr class="expense-row">
+      <td id="airfare"></td>
+      <td id="perDiem"></td>
+      <td id="preTravel"></td>
+      <td id="totalAmount"></td>
+    </tr>
+
+    <tr class="expense-row">
+      <td></td><td></td><td></td><td></td>
+    </tr>
+
+    <tr class="expense-row">
+      <td></td><td></td><td></td><td></td>
+    </tr>
+
+    <tr class="expense-row">
+      <td></td><td></td><td></td><td></td>
+    </tr>
+
+    <tr>
+      <td colspan="4" class="center bold">T O T A L</td>
+    </tr>
+  </table>
+
+  <table>
+    <colgroup>
+      <col style="width:45%;">
+      <col style="width:22%;">
+      <col style="width:33%;">
+    </colgroup>
+
+    <tr>
+      <td>
+        PREPARED BY:
+        <div class="sig-container">
+          <div class="sig-left"></div>
+          <div class="sig-right">
+            <div class="signature-box">
+              <div id="preparedBy" class="sig-name">DUKE VINCENT PAUL DAYATA</div>
+              <div id="requestedByPosition" class="sig-pos"></div>
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        FUNDS AVAILABLE:
+        <div class="sig-container">
+          <div class="sig-left"></div>
+          <div class="sig-right">
+            <div class="signature-box">
+              <div id="fundsAvailable" class="sig-name">N/A</div>
+              <div style="text-align:left; width:100%; padding-left:8px; box-sizing:border-box;">
+                <b>Source of Funds:</b><br>
+                <span id="sourceOfFunds"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        APPROVED BY:
+        <div class="sig-container">
+          <div class="sig-left"></div>
+          <div class="sig-right">
+            <div class="signature-box">
+              <div id="approvedBy" class="sig-name">SHIRLEY C. AGRUPIS, Ph.D</div>
+              <div id="approvedByPosition" class="sig-pos"></div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        Date: <span id="datePrepared"></span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    Higher Education Development Center Building, C.P. Garcia Ave., Diliman, Quezon City, Philippines 1104www.ched.gov.ph<br>
+    info@ched.gov.ph &nbsp;&nbsp;&nbsp;&nbsp; 02 8441 1260
+  </div>
+
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("attData") || "{}");
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+}
+
+function toBullets(text) {
+  if (!text) return "";
+
+  return text
+    .split("\n")
+    .filter(line => line.trim() !== "")
+    .map(line => "• " + line.trim())
+    .join("<br>");
+}
+
+document.getElementById("personnelNames").innerHTML =
+  data.personnel?.map(p => p.name).join("<br>") || "";
+
+document.getElementById("personnelPositions").innerHTML =
+  data.personnel?.map(p => p.position).join("<br>") || "";
+
+document.getElementById("officeStation").innerText = data.officeStation || "";
+document.getElementById("destination").innerText = data.destination || "";
+document.getElementById("periodOfTravel").innerText = data.periodOfTravel || "";
+document.getElementById("purpose").innerHTML = toBullets(data.purpose || "");
+
+document.getElementById("preparedBy").innerText =
+  data.preparedBy || "DUKE VINCENT PAUL DAYATA";
+
+document.getElementById("fundsAvailable").innerText =
+  data.fundsAvailable || "N/A";
+
+document.getElementById("approvedBy").innerText =
+  data.approvedBy || "SHIRLEY C. AGRUPIS, Ph.D";
+  
+document.getElementById("requestedByPosition").innerText =
+  data.requestedByPosition || "";
+
+document.getElementById("approvedByPosition").innerText =
+  data.approvedByPosition || "";
+
+document.getElementById("sourceOfFunds").innerText =
+  data.sourceOfFunds || "Personal";
+
+document.getElementById("datePrepared").innerText =
+  formatDate(data.datePrepared);
+
+document.getElementById("businessBox").innerText =
+  data.travelClassification === "Official Business" ? "✓" : "";
+
+document.getElementById("officialTimeBox").innerText =
+  data.travelClassification === "Official Time Only" ? "✓" : "";
+
+document.getElementById("personalBox").innerText =
+  data.travelClassification === "Personal Travel" || data.travelClassification === "Personal Time" ? "✓" : "";
+
+document.getElementById("cashAdvanceBox").innerText =
+  data.paymentMode === "Cash Advance" ? "✓" : "";
+
+document.getElementById("reimbursementBox").innerText =
+  data.paymentMode === "Reimbursement" ? "✓" : "";
+
+document.getElementById("airfare").innerText = data.airfare || "";
+document.getElementById("perDiem").innerText = data.perDiem || "";
+document.getElementById("preTravel").innerText = data.preTravel || "";
+document.getElementById("totalAmount").innerText = data.totalAmount || "";
+</script>
+
+</body>
+</html>

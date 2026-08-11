@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATT Generator System</title>
+  <base target="_top">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-[#f8fafc] min-h-screen text-slate-800 antialiased py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+    <div class="bg-gradient-to-r from-blue-900 to-indigo-950 rounded-2xl shadow-sm p-6 sm:p-8 text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-blue-500/30">Office of Commissioner Apag</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-2">ATT Generator System</h1>
+        <p class="text-blue-200/80 text-sm mt-1">Generate Authority to Travel Local or Abroad forms seamlessly.</p>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8 transition-all">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="p-2 bg-blue-50 text-blue-900 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Travel Parameters</h2>
+            <p class="text-xs text-slate-500">Provide core destination, schedule, and logistical information.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">ATT Type</label>
+            <select id="attType" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm">
+              <option value="Local">Local Travel</option>
+              <option value="Abroad">Travel Abroad</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Destination</label>
+            <input id="destination" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="e.g., Bataan / Japan">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Period of Travel</label>
+            <input id="periodOfTravel" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="e.g., May 28, 2026">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Office / Station</label>
+            <input id="officeStation" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm bg-slate-50 text-slate-700 focus:ring-2 focus:ring-blue-600 focus:outline-none transition shadow-sm" value="Commission on Higher Education - Central Office">
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Purpose of Travel</label>
+            <textarea id="purpose" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" rows="3" placeholder="State explicit details or legal dynamic bases for travel..."></textarea>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Travel Classification</label>
+            <select id="travelClassification" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm">
+              <option value="Official Business">Official Business</option>
+              <option value="Official Time Only">Official Time Only</option>
+              <option value="Personal Time">Personal Time</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Date Prepared</label>
+            <input type="date" id="datePrepared" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm">
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="p-2 bg-indigo-50 text-indigo-900 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Personnel Manifest</h2>
+            <p class="text-xs text-slate-500">Select and include verified staff members to this authority order.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <select id="personnelSelect" class="flex-1 border border-slate-300 rounded-xl p-3 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm">
+            <option value="">Loading personnel...</option>
+          </select>
+          <button onclick="addPersonnel()" class="bg-blue-900 hover:bg-blue-950 active:scale-[0.98] text-white rounded-xl px-6 py-3 font-semibold text-sm transition shadow-sm shrink-0">
+            Add Personnel
+          </button>
+        </div>
+
+        <div id="selectedPersonnel" class="mt-4 grid grid-cols-1 gap-2"></div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="p-2 bg-emerald-50 text-emerald-900 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Expense Allocations</h2>
+            <p class="text-xs text-slate-500">Provide funding information and accurate monetary allocations.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Source of Funds</label>
+            <input id="sourceOfFunds" value="Personal" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="Personal / Government / Sponsor">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600">Payment Mode</label>
+            <select id="paymentMode" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm">
+              <option value="">None</option>
+              <option value="Cash Advance">Cash Advance</option>
+              <option value="Reimbursement">Reimbursement</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600"><span id="labelAirfare">Airfare</span></label>
+            <input id="airfare" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="e.g., No gov funds / 0.00">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600"><span id="labelPerDiem">Per Diem</span></label>
+            <input id="perDiem" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="0.00">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600"><span id="labelPreTravel">Pre-travel Expenses</span></label>
+            <input id="preTravel" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="0.00">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-xs uppercase tracking-wider text-slate-600"><span id="labelTotalAmount">Total Amount</span></label>
+            <input id="totalAmount" class="w-full border border-slate-300 rounded-xl p-3 mt-1.5 text-sm font-semibold focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition shadow-sm" placeholder="0.00">
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="p-2 bg-amber-50 text-amber-900 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Signatory Matrix</h2>
+            <p class="text-xs text-slate-500">Map internal approval stakeholders and workflow routes.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-100 space-y-2">
+            <label class="block font-bold text-xs uppercase tracking-wider text-slate-600">Requested By</label>
+            <select id="requestedBySelect" onchange="updateRequestedBy()" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none transition">
+              <option value="">Select Personnel</option>
+            </select>
+            <input id="requestedBy" class="w-full border border-slate-200 rounded-lg p-2.5 text-xs bg-slate-100 text-slate-700 font-semibold cursor-not-allowed" readonly>
+            <input id="requestedByPosition" class="w-full border border-slate-200 rounded-lg p-2.5 text-2xs bg-slate-100 text-slate-500 uppercase tracking-tight cursor-not-allowed" readonly>
+          </div>
+
+          <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-100 flex flex-col h-full">
+            
+            <label class="block font-bold text-xs uppercase tracking-wider text-slate-600 mb-3">
+              Funds Status
+            </label>
+
+            <div class="flex-1 flex items-center">
+              <input
+                id="fundsAvailable"
+                class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-none transition"
+                value="N/A"
+              >
+            </div>
+
+          </div>
+
+          <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-100 space-y-2">
+            <label class="block font-bold text-xs uppercase tracking-wider text-slate-600">Approved By</label>
+            <select id="approvedBySelect" onchange="updateApprovedBy()" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none transition">
+              <option value="">Select Approver</option>
+            </select>
+            <input id="approvedBy" class="w-full border border-slate-200 rounded-lg p-2.5 text-xs bg-slate-100 text-slate-700 font-semibold" readonly>
+            <select id="approvedByPosition" class="w-full border border-slate-200 rounded-lg p-2.5 text-2xs bg-white text-slate-700 uppercase tracking-tight">
+              <option value="">Select Position</option>
+              <option value="Chairperson">Chairperson</option>
+              <option value="OIC - Chairperson">OIC - Chairperson</option>
+              <option value="Commissioner">Commissioner</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex justify-end pt-2">
+      <button onclick="generateATT()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white rounded-xl px-8 py-4 font-bold text-sm tracking-wide shadow-md transition-all duration-150 flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+        Generate ATT Record
+      </button>
+    </div>
+
+  </div>
+
+<script>
+let personnelList = [];
+let selectedPersonnel = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("datePrepared").valueAsDate = new Date();
+
+  google.script.run.withSuccessHandler(data => {
+    personnelList = data;
+    const select = document.getElementById("personnelSelect");
+    select.innerHTML = `<option value="">Select personnel</option>`;
+
+    data.forEach((p, index) => {
+      select.innerHTML += `
+        <option value="${index}">
+          ${p.name} - ${p.position}
+        </option>
+      `;
+    });
+
+    loadRequestedByDropdown();
+
+    document.getElementById("approvedBy").value = "SHIRLEY C. AGRUPIS, Ph.D";
+    document.getElementById("approvedByPosition").value = "Chairperson";
+
+    }).getPersonnelList();
+
+    // Load chairman/approved-by options from the 'Chairman' sheet
+    google.script.run.withSuccessHandler(chairs => {
+      const sel = document.getElementById("approvedBySelect");
+      sel.innerHTML = `<option value="">Select Approver</option>`;
+
+      chairs.forEach(c => {
+        const val = `${c.name}|${c.position}`;
+        const text = c.display || c.name;
+        sel.innerHTML += `<option value="${val}">${text}</option>`;
+      });
+
+      if (chairs.length > 0) {
+        sel.selectedIndex = 1;
+        updateApprovedBy();
+      } else {
+        // fallback default
+        document.getElementById("approvedBy").value = "SHIRLEY C. AGRUPIS, Ph.D";
+        document.getElementById("approvedByPosition").value = "Chairperson";
+      }
+    }).getChairmanList();
+
+      // Load defaults based on ATT Type
+      loadFormForType(document.getElementById('attType').value);
+      document.getElementById('attType').addEventListener('change', e => loadFormForType(e.target.value));
+});
+
+    const _attTypeDefaults = {
+      Local: {
+        sourceOfFunds: 'Personal',
+        paymentMode: '',
+        airfare: '',
+        perDiem: '',
+        preTravel: '',
+        totalAmount: '',
+        fundsAvailable: 'N/A'
+      },
+      Abroad: {
+        sourceOfFunds: 'Personal',
+        paymentMode: 'Reimbursement',
+        airfare: '',
+        perDiem: '',
+        preTravel: '',
+        totalAmount: '',
+        fundsAvailable: 'N/A'
+      }
+    };
+
+    function loadFormForType(type) {
+      const defs = _attTypeDefaults[type] || {};
+      document.getElementById('sourceOfFunds').value = defs.sourceOfFunds || '';
+      document.getElementById('paymentMode').value = defs.paymentMode || '';
+      document.getElementById('airfare').value = defs.airfare || '';
+      document.getElementById('perDiem').value = defs.perDiem || '';
+      document.getElementById('preTravel').value = defs.preTravel || '';
+      document.getElementById('totalAmount').value = defs.totalAmount || '';
+      document.getElementById('fundsAvailable').value = defs.fundsAvailable || '';
+
+      // Update expense column labels per ATT type
+      if (type === 'Local') {
+        document.getElementById('labelAirfare').innerHTML = 'AIRFARE EXPENSES with<br>Travel Insurance';
+        document.getElementById('labelPerDiem').innerText = 'Meals';
+        document.getElementById('labelPreTravel').innerText = 'Travel Allowance';
+        document.getElementById('labelTotalAmount').innerText = 'Total Amount';
+      } else {
+        document.getElementById('labelAirfare').innerText = 'Airfare';
+        document.getElementById('labelPerDiem').innerText = 'Per Diem';
+        document.getElementById('labelPreTravel').innerText = 'Pre-travel Expenses';
+        document.getElementById('labelTotalAmount').innerText = 'Total Amount';
+      }
+    }
+
+function addPersonnel() {
+  const index = document.getElementById("personnelSelect").value;
+  if (index === "") return;
+
+  const person = personnelList[index];
+
+  if (selectedPersonnel.some(p => p.name === person.name)) {
+    alert("Personnel already added.");
+    return;
+  }
+
+  selectedPersonnel.push(person);
+  renderSelectedPersonnel();
+}
+
+function removePersonnel(index) {
+  selectedPersonnel.splice(index, 1);
+  renderSelectedPersonnel();
+}
+
+function renderSelectedPersonnel() {
+  const container = document.getElementById("selectedPersonnel");
+
+  if (selectedPersonnel.length === 0) {
+    container.innerHTML = `
+      <div class="flex items-center gap-2 border border-dashed border-slate-200 rounded-xl px-4 py-4 justify-center bg-slate-50/50">
+         <p class="text-xs text-slate-400">No official personnel selected for travel order manifest yet.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = selectedPersonnel.map((p, index) => `
+    <div class="flex justify-between items-center border border-slate-200 rounded-xl px-4 py-3 bg-white shadow-sm hover:border-slate-300 transition-all">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-600">
+          ${p.name.charAt(0)}
+        </div>
+        <div>
+          <div class="font-bold text-sm text-slate-800">${p.name}</div>
+          <div class="text-2xs uppercase tracking-wider text-slate-400 font-medium">${p.position}</div>
+        </div>
+      </div>
+      <button onclick="removePersonnel(${index})" class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+        Remove
+      </button>
+    </div>
+  `).join("");
+}
+
+function loadRequestedByDropdown() {
+  const select = document.getElementById("requestedBySelect");
+  select.innerHTML = `<option value="">Select Personnel</option>`;
+
+  personnelList.forEach((p, index) => {
+    select.innerHTML += `
+      <option value="${index}">
+        ${p.name} - ${p.position}
+      </option>
+    `;
+  });
+}
+
+function updateRequestedBy() {
+  const index = document.getElementById("requestedBySelect").value;
+  if (index === "") return;
+
+  const person = personnelList[index];
+  document.getElementById("requestedBy").value = person.name;
+  document.getElementById("requestedByPosition").value = person.position;
+}
+
+function updateApprovedBy() {
+  const value = document.getElementById("approvedBySelect").value;
+  const parts = value.split("|");
+
+  document.getElementById("approvedBy").value = parts[0];
+  const posSelect = document.getElementById("approvedByPosition");
+  const pos = parts[1] || "";
+
+  // If the position exists in options, select it; otherwise add it then select
+  let found = Array.from(posSelect.options).find(o => o.value === pos);
+  if (!found && pos) {
+    const opt = document.createElement('option');
+    opt.value = pos;
+    opt.text = pos;
+    posSelect.appendChild(opt);
+    found = opt;
+  }
+
+  if (found) posSelect.value = pos;
+}
+
+function generateATT() {
+  if (selectedPersonnel.length === 0) {
+    alert("Please select at least one personnel.");
+    return;
+  }
+
+  const data = {
+    attType: document.getElementById("attType").value,
+    personnel: selectedPersonnel,
+    destination: document.getElementById("destination").value,
+    periodOfTravel: document.getElementById("periodOfTravel").value,
+    officeStation: document.getElementById("officeStation").value,
+    purpose: document.getElementById("purpose").value,
+    travelClassification: document.getElementById("travelClassification").value,
+    datePrepared: document.getElementById("datePrepared").value,
+    requestedBy: document.getElementById("requestedBy").value,
+    fundsAvailable: document.getElementById("fundsAvailable").value,
+    approvedBy: document.getElementById("approvedBy").value,
+
+    sourceOfFunds: document.getElementById("sourceOfFunds")?.value || "Personal",
+    airfare: document.getElementById("airfare")?.value || "",
+    perDiem: document.getElementById("perDiem")?.value || "",
+    preTravel: document.getElementById("preTravel")?.value || "",
+    totalAmount: document.getElementById("totalAmount")?.value || "",
+    paymentMode: document.getElementById("paymentMode")?.value || "",
+    requestedByPosition: document.getElementById("requestedByPosition").value,
+    approvedByPosition: document.getElementById("approvedByPosition").value,
+  };
+
+  google.script.run.withSuccessHandler(res => {
+    data.referenceNo = res.referenceNo;
+    localStorage.setItem("attData", JSON.stringify(data));
+
+    const printPage = data.attType === "Abroad" ? "printAbroad" : "printLocal";
+    const baseUrl = "https://script.google.com/a/macros/ched.gov.ph/s/AKfycbynAThKAAK6fh6v3uNqCf2K7ToZZ3ynqVHZI9fqiU4/dev";
+    const url = `${baseUrl}?page=${printPage}&ref=${encodeURIComponent(data.referenceNo)}`;
+
+    window.open(url, "_blank");
+  }).saveATTRecord(data);
+}
+</script>
+
+</body>
+</html>

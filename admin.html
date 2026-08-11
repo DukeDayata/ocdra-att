@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATT Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chedBlue: '#123B72',
+            chedNavy: '#0A2540',
+            chedGold: '#E6A817',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+  <div class="h-1.5 bg-gradient-to-r from-chedNavy via-chedBlue to-chedGold"></div>
+
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+    <header
+      class="flex flex-col md:flex-row md:items-center md:justify-between pb-6 mb-6 border-b border-gray-200 gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+          <svg class="w-7 h-7 text-chedBlue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+            </path>
+          </svg>
+          ATT Admin Dashboard
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">Manage and view saved Authority to Travel (ATT) records.</p>
+      </div>
+      <button onclick="load()"
+        class="inline-flex items-center justify-center min-h-11 px-5 py-2.5 text-sm font-semibold text-white bg-chedBlue hover:bg-chedNavy rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-chedBlue cursor-pointer">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.253 8H18">
+          </path>
+        </svg>
+        Refresh Records
+      </button>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Records</p>
+          <h3 id="statTotal" class="text-2xl font-bold text-gray-900 mt-1">0</h3>
+        </div>
+        <div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Local Travel</p>
+          <h3 id="statLocal" class="text-2xl font-bold text-teal-600 mt-1">0</h3>
+        </div>
+        <div class="p-3 bg-teal-50 text-teal-600 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Travel Abroad</p>
+          <h3 id="statAbroad" class="text-2xl font-bold text-indigo-600 mt-1">0</h3>
+        </div>
+        <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h18">
+            </path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-5 flex flex-col lg:flex-row gap-3 items-center justify-between">
+      <div class="relative w-full lg:max-w-xl">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </span>
+        <input type="search" id="searchInput" oninput="handleFilter()"
+          placeholder="Search reference, personnel, or destination" aria-label="Search records"
+          class="w-full min-h-11 pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-chedBlue/20 focus:border-chedBlue">
+      </div>
+
+      <div class="flex items-center gap-2 w-full lg:w-auto justify-end">
+        <label for="typeFilter" class="text-xs font-medium text-gray-500 whitespace-nowrap">Filter Type:</label>
+        <select id="typeFilter" onchange="handleFilter()"
+          class="min-h-11 bg-slate-50 border border-slate-300 text-gray-900 text-sm rounded-xl focus:ring-chedBlue focus:border-chedBlue block px-3 cursor-pointer">
+          <option value="All">All Types</option>
+          <option value="Local">Local</option>
+          <option value="Abroad">Abroad</option>
+        </select>
+        <label for="pageSize" class="text-xs font-medium text-gray-500 whitespace-nowrap">Rows:</label>
+        <select id="pageSize" onchange="changePageSize()"
+          class="min-h-11 bg-slate-50 border border-slate-300 text-sm rounded-xl focus:ring-chedBlue focus:border-chedBlue px-3 cursor-pointer">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative min-h-[200px]">
+
+      <div id="statusOverlay"
+        class="absolute inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-10 hidden">
+        <div id="statusSpinner"
+          class="animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-chedBlue mb-2"></div>
+        <p id="statusText" class="text-sm font-medium text-gray-600">Loading records...</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="recordsTable" class="w-full text-left border-collapse table-auto">
+          <thead>
+            <tr
+              class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <th class="px-6 py-4">Reference</th>
+              <th class="px-6 py-4">Type</th>
+              <th class="px-6 py-4">Personnel</th>
+              <th class="px-6 py-4">Destination</th>
+              <th class="px-6 py-4">Period</th>
+              <th class="px-6 py-4">Date Prepared</th>
+              <th class="px-6 py-4">Approved By</th>
+              <th class="px-6 py-4">Status</th>
+              <th class="px-6 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+          </tbody>
+        </table>
+      </div>
+      <div id="pagination"
+        class="border-t border-slate-200 px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3"
+        aria-label="Table pagination">
+        <p id="paginationSummary" class="text-sm text-slate-500">Showing 0 records</p>
+        <div class="flex items-center gap-1">
+          <button id="prevPage" onclick="goToPage(currentPage - 1)"
+            class="min-h-10 px-3 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+          <div id="pageButtons" class="flex items-center gap-1"></div>
+          <button id="nextPage" onclick="goToPage(currentPage + 1)"
+            class="min-h-10 px-3 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Global master list state
+    let masterRecordsList = [];
+    let filteredRecordsList = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+
+    function showStatus(message, isError = false, isLoading = false) {
+      const overlay = document.getElementById('statusOverlay');
+      const text = document.getElementById('statusText');
+      const spinner = document.getElementById('statusSpinner');
+
+      if (!message) {
+        overlay.classList.add('hidden');
+        return;
+      }
+
+      overlay.classList.remove('hidden');
+      text.innerText = message;
+
+      if (isError) {
+        text.className = "text-sm font-medium text-red-600";
+        spinner.classList.add('hidden');
+      } else if (isLoading) {
+        text.className = "text-sm font-medium text-gray-600";
+        spinner.classList.remove('hidden');
+      } else {
+        text.className = "text-sm font-medium text-gray-500";
+        spinner.classList.add('hidden');
+      }
+    }
+
+    function calculateStats(list) {
+      const total = list.length;
+      const local = list.filter(r => r.attType === 'Local').length;
+      const abroad = list.filter(r => r.attType === 'Abroad').length;
+
+      document.getElementById('statTotal').innerText = total;
+      document.getElementById('statLocal').innerText = local;
+      document.getElementById('statAbroad').innerText = abroad;
+    }
+
+    function renderRecords(list) {
+      const tbody = document.querySelector('#recordsTable tbody');
+      tbody.innerHTML = '';
+      filteredRecordsList = list || [];
+      const totalPages = Math.max(1, Math.ceil(filteredRecordsList.length / rowsPerPage));
+      currentPage = Math.min(currentPage, totalPages);
+      const startIndex = (currentPage - 1) * rowsPerPage;
+      const pageRecords = filteredRecordsList.slice(startIndex, startIndex + rowsPerPage);
+
+      if (!list || list.length === 0) {
+        showStatus('No records found.');
+        renderPagination(0);
+        return;
+      }
+
+      showStatus(null); // Clear overlay
+
+      pageRecords.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50/70 transition-colors duration-150";
+
+        const personnel = (r.personnel || []).map(p => p.name || p).join(', ');
+
+        // Type Badge Styling
+        const isAbroad = r.attType === 'Abroad';
+        const typeBadgeClass = isAbroad
+          ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+          : 'bg-teal-50 text-teal-700 border-teal-200';
+
+        // Status Badge Stylings
+        let statusBadgeClass = 'bg-gray-50 text-gray-600 border-gray-200';
+        if (r.status === 'Signed') statusBadgeClass = 'bg-green-50 text-green-700 border-green-200';
+        else if (r.status === 'Return') statusBadgeClass = 'bg-red-50 text-red-700 border-red-200';
+        else if (r.status === 'Submitted') statusBadgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+
+        tr.innerHTML = `
+      <td class="px-6 py-4 font-mono text-xs font-semibold text-gray-900 whitespace-nowrap">${escapeHtml(r.referenceNo || '')}</td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${typeBadgeClass}">
+          ${escapeHtml(r.attType || '')}
+        </span>
+      </td>
+      <td class="px-6 py-4 max-w-xs truncate" title="${escapeHtml(personnel)}">${escapeHtml(personnel)}</td>
+      <td class="px-6 py-4 max-w-xs truncate" title="${escapeHtml(r.destination || '')}">${escapeHtml(r.destination || '')}</td>
+      <td class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">${escapeHtml(r.periodOfTravel || '')}</td>
+      <td class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">${escapeHtml(r.datePrepared || '')}</td>
+      <td class="px-6 py-4 text-gray-600 whitespace-nowrap">${escapeHtml(r.approvedBy || '')}</td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        ${r.status ? `
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${statusBadgeClass}">
+            ${escapeHtml(r.status)}
+          </span>
+        ` : `<span class="text-xs text-gray-400 italic">None Set</span>`}
+      </td>
+      <td class="px-6 py-4 text-right whitespace-nowrap">
+        <div class="inline-flex items-center justify-end gap-2 w-full">
+          <button onclick="openPrint('${escapeJs(r.referenceNo)}','${escapeJs(r.attType)}')" class="inline-flex items-center px-3 py-2 text-xs font-medium text-chedBlue bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer">
+            View
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </button>
+          
+          <select onchange="updateStatus('${escapeJs(r.referenceNo)}', this.value)" class="text-xs bg-gray-50 border border-gray-300 text-gray-700 rounded-lg focus:ring-1 focus:ring-chedBlue focus:border-chedBlue p-2 cursor-pointer outline-none">
+            <option value="" ${!r.status ? 'selected' : ''}>Set status...</option>
+            <option value="Signed" ${r.status === 'Signed' ? 'selected' : ''}>Signed</option>
+            <option value="Return" ${r.status === 'Return' ? 'selected' : ''}>Return</option>
+            <option value="Submitted" ${r.status === 'Submitted' ? 'selected' : ''}>Submitted</option>
+          </select>
+        </div>
+      </td>
+    `;
+        tbody.appendChild(tr);
+      });
+      renderPagination(filteredRecordsList.length);
+    }
+
+    function renderPagination(totalRecords) {
+      const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));
+      const start = totalRecords ? (currentPage - 1) * rowsPerPage + 1 : 0;
+      const end = Math.min(currentPage * rowsPerPage, totalRecords);
+      document.getElementById('paginationSummary').innerText = `Showing ${start}–${end} of ${totalRecords} records`;
+      document.getElementById('prevPage').disabled = currentPage <= 1 || totalRecords === 0;
+      document.getElementById('nextPage').disabled = currentPage >= totalPages || totalRecords === 0;
+
+      const container = document.getElementById('pageButtons');
+      container.innerHTML = '';
+      const pages = [];
+      for (let page = 1; page <= totalPages; page++) {
+        if (page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1) pages.push(page);
+      }
+      let previous = 0;
+      pages.forEach(page => {
+        if (page - previous > 1) {
+          const ellipsis = document.createElement('span');
+          ellipsis.className = 'px-1 text-slate-400';
+          ellipsis.textContent = '…';
+          container.appendChild(ellipsis);
+        }
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = page;
+        button.setAttribute('aria-label', `Go to page ${page}`);
+        button.setAttribute('aria-current', page === currentPage ? 'page' : 'false');
+        button.className = page === currentPage
+          ? 'min-w-10 min-h-10 px-3 rounded-lg bg-chedBlue text-white text-sm font-semibold'
+          : 'min-w-10 min-h-10 px-3 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50';
+        button.onclick = () => goToPage(page);
+        container.appendChild(button);
+        previous = page;
+      });
+    }
+
+    function goToPage(page) {
+      const totalPages = Math.max(1, Math.ceil(filteredRecordsList.length / rowsPerPage));
+      if (page < 1 || page > totalPages || page === currentPage) return;
+      currentPage = page;
+      renderRecords(filteredRecordsList);
+      document.getElementById('recordsTable').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function changePageSize() {
+      rowsPerPage = Number(document.getElementById('pageSize').value) || 10;
+      currentPage = 1;
+      renderRecords(filteredRecordsList);
+    }
+
+    function handleFilter() {
+      const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+      const typeFilter = document.getElementById('typeFilter').value;
+
+      const filtered = masterRecordsList.filter(r => {
+        const personnelStr = (r.personnel || []).map(p => p.name || p).join(', ').toLowerCase();
+        const matchesSearch =
+          (r.referenceNo || '').toLowerCase().includes(searchQuery) ||
+          (r.destination || '').toLowerCase().includes(searchQuery) ||
+          personnelStr.includes(searchQuery);
+
+        const matchesType = typeFilter === 'All' || r.attType === typeFilter;
+
+        return matchesSearch && matchesType;
+      });
+
+      currentPage = 1;
+      renderRecords(filtered);
+    }
+
+    function openPrint(ref, type) {
+      const page = type === 'Abroad' ? 'printAbroad' : 'printLocal';
+      const baseUrl = 'https://script.google.com/a/macros/ched.gov.ph/s/AKfycbynAThKAAK6fh6v3uNqCf2K7ToZZ3ynqVHZI9fqiU4/dev';
+      const url = `${baseUrl}?page=${page}&ref=${encodeURIComponent(ref)}`;
+      window.open(url, '_blank');
+    }
+
+    function updateStatus(ref, status) {
+      if (!ref) return;
+
+      // Optimistic front-end state modification
+      google.script.run.withSuccessHandler(res => {
+        if (res && res.success) {
+          const item = masterRecordsList.find(r => r.referenceNo === ref);
+          if (item) item.status = status;
+          handleFilter();
+        } else {
+          alert('Unable to update status: ' + (res && res.message ? res.message : 'unknown'));
+        }
+      }).withFailureHandler(err => {
+        console.error(err);
+        alert('Error updating status');
+      }).setATTStatus(ref, status);
+    }
+
+    function load() {
+      showStatus('Loading records from server...', false, true);
+
+      document.getElementById('searchInput').value = '';
+      document.getElementById('typeFilter').value = 'All';
+
+      google.script.run.withSuccessHandler(list => {
+        masterRecordsList = list || [];
+        filteredRecordsList = masterRecordsList;
+        currentPage = 1;
+        calculateStats(masterRecordsList);
+        if (!masterRecordsList || masterRecordsList.length === 0) {
+          showStatus('No records returned from server. Fetching debug info...', false, true);
+          google.script.run.withSuccessHandler(debug => {
+            showDebugInfo(debug);
+          }).withFailureHandler(err => {
+            showStatus('No records found and debug fetch failed.', true, false);
+            console.error(err);
+          }).debugFullInfo();
+        } else {
+          renderRecords(masterRecordsList);
+        }
+      }).withFailureHandler(err => {
+        showStatus('Error loading records from server.', true, false);
+        console.error(err);
+      }).getAllATTRecords();
+    }
+
+    function showDebugInfo(info) {
+      if (!info) {
+        showStatus('Debug returned no data.', true, false);
+        return;
+      }
+      const overlay = document.getElementById('statusOverlay');
+      const text = document.getElementById('statusText');
+      overlay.classList.remove('hidden');
+      text.className = 'text-sm font-medium text-gray-700';
+      let msg = '';
+      if (info.error) {
+        msg = `Error: ${info.error}`;
+      } else {
+        msg = `Spreadsheet ID: ${info.spreadsheetId || ''}\nActive user: ${info.activeUser || ''}\nSheet exists: ${info.sheetExists}\nRows: ${info.rowCount || 0}  Cols: ${info.colCount || 0}`;
+        if (info.headers) msg += `\nHeaders: ${info.headers.join(' | ')}`;
+        if (info.sampleRows && info.sampleRows.length) msg += `\nSample row[0]: ${JSON.stringify(info.sampleRows[0])}`;
+      }
+      text.innerText = msg;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    window.addEventListener('DOMContentLoaded', load);
+  </script>
+</body>
+
+</html>

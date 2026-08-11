@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ATT Generator — Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chedBlue: '#0f4c81',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-800 font-sans flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+  
+  <div class="absolute top-0 inset-x-0 h-2 bg-chedBlue"></div>
+
+  <div class="max-w-xl w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 transition-all relative">
+    
+    <div class="text-center pb-6 mb-6 border-b border-gray-100">
+      <div class="inline-flex items-center justify-center w-14 h-14 bg-blue-50 text-chedBlue rounded-full mb-4 shadow-inner">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Authority to Travel (ATT)</h1>
+      <p class="text-sm text-gray-500 mt-1.5 max-w-sm mx-auto">Official management and generation platform for local and international institutional travel records.</p>
+    </div>
+
+    <div class="space-y-4">
+      
+      <a target="_top"
+        href="https://script.google.com/a/macros/ched.gov.ph/s/AKfycbwvi8dXT_yFs5JqSZsb1Qw1CHtkcrH5gQv8PF7sxyYQKYO89sZUN3Osj_R8FkcKfAOI/exec?page=form"
+        class="group flex items-start p-4 bg-chedBlue text-white rounded-xl shadow-md shadow-blue-900/10 hover:bg-opacity-95 transition-all duration-200 transform hover:-translate-y-0.5">
+              <div class="p-2.5 bg-white/10 rounded-lg mr-4 mt-0.5 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h2 class="font-semibold text-base tracking-wide">Create ATT Request</h2>
+          <p class="text-xs text-blue-100/80 mt-0.5">Generate a new travel authorization request form.</p>
+        </div>
+        <div class="self-center ml-2 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+        </div>
+      </a>
+
+      <a target="_top" 
+        href="https://script.google.com/a/macros/ched.gov.ph/s/AKfycbwvi8dXT_yFs5JqSZsb1Qw1CHtkcrH5gQv8PF7sxyYQKYO89sZUN3Osj_R8FkcKfAOI/exec?page=admin" class="group flex items-start p-4 bg-white border border-gray-200 text-gray-800 rounded-xl hover:bg-gray-50/80 hover:border-gray-300 shadow-sm transition-all duration-200 transform hover:-translate-y-0.5">
+        <div class="p-2.5 bg-gray-100 text-gray-600 rounded-lg mr-4 mt-0.5 group-hover:bg-blue-50 group-hover:text-chedBlue transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h2 class="font-semibold text-base text-gray-900 group-hover:text-chedBlue transition-colors">Admin Dashboard</h2>
+          <p class="text-xs text-gray-500 mt-0.5">Review history, verify configurations, and update status logs.</p>
+        </div>
+        <div class="self-center ml-2 text-gray-400 group-hover:text-chedBlue group-hover:translate-x-1 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+        </div>
+      </a>
+
+      <div class="pt-4 mt-2">
+        <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2.5 px-1">Layout References</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          <a target="_top"
+            href="https://script.google.com/a/macros/ched.gov.ph/s/AKfycbwvi8dXT_yFs5JqSZsb1Qw1CHtkcrH5gQv8PF7sxyYQKYO89sZUN3Osj_R8FkcKfAOI/exec?page=printLocal" class="inline-flex items-center justify-between px-4 py-2.5 bg-gray-50 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-900 transition-colors">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+              Print Local Template
+            </span>
+            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+
+          <a target="_top"
+          href="https://script.google.com/a/macros/ched.gov.ph/s/AKfycbwvi8dXT_yFs5JqSZsb1Qw1CHtkcrH5gQv8PF7sxyYQKYO89sZUN3Osj_R8FkcKfAOI/exec?page=printAbroad" class="inline-flex items-center justify-between px-4 py-2.5 bg-gray-50 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-900 transition-colors">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+              Print Abroad Template
+            </span>
+            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 font-medium">
+      <div>Commission on Higher Education</div>
+      <div>System Live &bull; 2026</div>
+    </footer>
+  </div>
+</body>
+</html>
