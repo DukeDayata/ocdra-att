@@ -23,7 +23,20 @@ connectDB();
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || '*',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const clientUrl = process.env.CLIENT_URL || '*';
+      if (
+        clientUrl === '*' ||
+        origin === clientUrl ||
+        origin === clientUrl.replace(/\/$/, '') ||
+        origin.endsWith('.vercel.app') ||
+        origin.includes('localhost')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   })
