@@ -33,8 +33,10 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Office Brand */}
           <Link to="/" className="flex items-center gap-3.5 group">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-white/20 to-white/5 rounded-xl flex items-center justify-center p-2 shadow-inner border border-white/20 group-hover:scale-105 group-hover:border-chedGold/50 transition-all duration-200">
-              <FileText className="w-6 h-6 text-chedGold drop-shadow" />
+            <div className="flex items-center gap-1.5 bg-white rounded-xl p-1 shadow-md border border-white/30 group-hover:scale-105 group-hover:border-chedGold/80 transition-all duration-200 shrink-0">
+              <img src="/assets/ched_logo.png" alt="CHED Logo" className="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
+              <div className="w-px h-6 bg-slate-200"></div>
+              <img src="/assets/ocdra-logo.png" alt="OCDRA Logo" className="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -46,7 +48,7 @@ export const Header = () => {
                 </span>
               </div>
               <h1 className="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight flex items-center gap-2">
-                ATT Generator System
+                ATT Generator System &bull; OCDRA
               </h1>
             </div>
           </Link>

@@ -25,19 +25,35 @@ export const MainPortal = () => {
       {/* Top Welcome Banner */}
       <div className="relative overflow-hidden bg-gradient-to-r from-chedNavy via-chedBlue to-blue-900 rounded-3xl p-8 sm:p-10 text-white shadow-xl shadow-chedNavy/10 mb-8 border border-white/10">
         <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-chedGold/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden md:block">
-          <Shield className="w-48 h-48 text-white" />
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 opacity-10 pointer-events-none hidden md:flex items-center gap-4">
+          <img src="/assets/ched_logo.png" alt="CHED Seal Watermark" className="w-32 h-32 object-contain filter drop-shadow-2xl" />
+          <img src="/assets/ocdra-logo.png" alt="OCDRA Seal Watermark" className="w-32 h-32 object-contain filter drop-shadow-2xl" />
         </div>
 
-        <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-chedGold text-xs font-bold uppercase tracking-wider mb-4 border border-white/15">
-            <Sparkles className="w-3.5 h-3.5 text-chedGold" />
-            Office of Commissioner Apag &bull; CHED Central
+        <div className="relative z-10 max-w-3xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-4">
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl p-2 shadow-xl shadow-black/20 border-2 border-chedGold/60 shrink-0 flex items-center justify-center backdrop-blur-md transition-transform hover:scale-105">
+                <img src="/assets/ched_logo.png" alt="Commission on Higher Education Logo" className="max-w-full max-h-full object-contain drop-shadow" />
+              </div>
+              <div className="h-10 w-px bg-white/20 hidden sm:block"></div>
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl p-2 shadow-xl shadow-black/20 border-2 border-chedGold/60 shrink-0 flex items-center justify-center backdrop-blur-md transition-transform hover:scale-105">
+                <img src="/assets/ocdra-logo.png" alt="Office of Commissioner Designate Rody P. Apag Logo" className="max-w-full max-h-full object-contain drop-shadow" />
+              </div>
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-chedGold text-xs font-bold uppercase tracking-wider mb-2 border border-white/15">
+                <Sparkles className="w-3.5 h-3.5 text-chedGold" />
+                Office of Commissioner Apag &bull; CHED Central &bull; OCDRA
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Authority to Travel (ATT) Management Platform
+              </h1>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
-            Authority to Travel (ATT) Management Platform
-          </h1>
-          <p className="text-sm sm:text-base text-blue-100/90 mt-3 leading-relaxed">
+
+          <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
             Official government system for generating, tracking, and approving local and international institutional travel authorizations.
           </p>
 

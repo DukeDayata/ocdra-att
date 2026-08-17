@@ -13,12 +13,14 @@ export const Footer = () => {
     <footer className="bg-slate-900 text-slate-400 text-xs no-print border-t border-slate-800 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-chedNavy flex items-center justify-center border border-white/10">
-            <Shield className="w-4 h-4 text-chedGold" />
+          <div className="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-white/20 shadow-sm shrink-0">
+            <img src="/assets/ched_logo.png" alt="CHED Logo" className="w-7 h-7 object-contain" />
+            <div className="w-px h-5 bg-slate-200"></div>
+            <img src="/assets/ocdra-logo.png" alt="OCDRA Logo" className="w-7 h-7 object-contain" />
           </div>
           <div>
             <div className="font-bold text-slate-200">Commission on Higher Education</div>
-            <div className="text-[11px] text-slate-400">Office of Commissioner Apag &bull; ATT Generator Platform</div>
+            <div className="text-[11px] text-slate-400">Office of Commissioner Apag &bull; OCDRA &bull; ATT Generator Platform</div>
           </div>
         </div>
 

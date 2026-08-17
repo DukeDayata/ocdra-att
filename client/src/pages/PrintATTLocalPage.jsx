@@ -54,6 +54,15 @@ export const PrintATTLocalPage = () => {
   const isCashAdvance = data.paymentMode === 'Cash Advance';
   const isReimbursement = data.paymentMode === 'Reimbursement';
 
+  const hasExpenses = Boolean(
+    data.expenses?.airfare ||
+    data.expenses?.perDiem ||
+    data.expenses?.preTravel ||
+    data.expenses?.airfareRaw ||
+    data.expenses?.perDiemRaw ||
+    data.expenses?.preTravelRaw
+  );
+
   return (
     <div className="bg-white min-h-screen font-sans text-[#111] text-[12px] p-2 sm:p-4">
       {/* Floating Print Toolbar */}
@@ -312,9 +321,30 @@ export const PrintATTLocalPage = () => {
             </tr>
 
             <tr className="expenses-row">
-              <td>{data.expenses?.airfareRaw || data.expenses?.airfare || ''}</td>
-              <td>{data.expenses?.perDiemRaw || data.expenses?.perDiem || ''}</td>
-              <td>{data.expenses?.preTravelRaw || data.expenses?.preTravel || ''}</td>
+              {hasExpenses ? (
+                <>
+                  <td>{data.expenses?.airfareRaw || data.expenses?.airfare || ''}</td>
+                  <td>{data.expenses?.perDiemRaw || data.expenses?.perDiem || ''}</td>
+                  <td>{data.expenses?.preTravelRaw || data.expenses?.preTravel || ''}</td>
+                </>
+              ) : (
+                <td colSpan="3" style={{ padding: 0, verticalAlign: 'middle', textAlign: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '130px' }}>
+                    <div style={{
+                      border: '2px solid #000',
+                      padding: '8px 24px',
+                      backgroundColor: '#fff',
+                      fontWeight: '700',
+                      fontSize: '13px',
+                      letterSpacing: '0.5px',
+                      textAlign: 'center',
+                      lineHeight: '1.2'
+                    }}>
+                      NO CHED FUND INCURRED
+                    </div>
+                  </div>
+                </td>
+              )}
               <td className="expense-dash">{data.expenses?.totalAmountRaw || data.expenses?.totalAmount || ''}</td>
               <td>
                 <div style={{ paddingTop: '18px', textAlign: 'left', paddingLeft: '8px', boxSizing: 'border-box' }}>
