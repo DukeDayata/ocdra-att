@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Printer, ArrowLeft, Clock, UserCheck, DollarSign, Calendar, MapPin, CheckCircle, FileText, Send, PenTool, CheckCircle2 } from 'lucide-react';
+import { Printer, ArrowLeft, Clock, UserCheck, DollarSign, Calendar, MapPin, CheckCircle, FileText, Send, PenTool, CheckCircle2, Edit3 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { attApi } from '../services/api';
 import { StatusBadge } from '../components/common/StatusBadge';
@@ -98,6 +98,14 @@ export const ATTDetailsPage = () => {
             <ArrowLeft className="w-4 h-4" />
             Dashboard
           </button>
+
+          <Link
+            to={`/att/${record.referenceNo}/edit`}
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-white text-xs font-extrabold rounded-xl shadow-md shadow-amber-500/20 transition"
+          >
+            <Edit3 className="w-4 h-4" />
+            Edit ATT
+          </Link>
 
           <a
             href={printRoute}

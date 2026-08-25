@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import ATTRecord from '../models/ATTRecord.js';
 import { generateUniqueReferenceNo } from '../utils/referenceGenerator.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
@@ -208,7 +209,14 @@ export const updateATT = async (req, res, next) => {
     const { id } = req.params;
     const updateData = req.body;
 
-    const record = await ATTRecord.findById(id);
+    let record = null;
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      record = await ATTRecord.findById(id);
+    }
+    if (!record) {
+      record = await ATTRecord.findOne({ referenceNo: id });
+    }
+
     if (!record) {
       return errorResponse(res, 404, 'ATT record not found');
     }

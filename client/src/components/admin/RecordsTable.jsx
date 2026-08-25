@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Printer, Archive } from 'lucide-react';
+import { Eye, Printer, Archive, Edit3 } from 'lucide-react';
 import { StatusBadge } from '../common/StatusBadge';
 import { formatDate } from '../../utils/formatters';
 
@@ -18,6 +18,28 @@ export const RecordsTable = ({
       .map((n) => n[0])
       .join('')
       .toUpperCase();
+  };
+
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case 'Signed':
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100';
+      case 'Submitted':
+        return 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100';
+      case 'For Signature':
+        return 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100';
+      case 'Return':
+      case 'Disapproved':
+        return 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100';
+      case 'Generated':
+      case 'Draft':
+        return 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100';
+      case 'Cancelled':
+      case 'Archived':
+        return 'bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200';
+      default:
+        return 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200';
+    }
   };
 
   return (
@@ -93,34 +115,12 @@ export const RecordsTable = ({
                 <td className="px-5 py-3.5 text-slate-600 whitespace-nowrap">{r.approvedBy?.name || 'N/A'}</td>
 
                 <td className="px-5 py-3.5 whitespace-nowrap">
-                  <StatusBadge status={r.status} />
-                </td>
-
-                <td className="px-5 py-3.5 text-right whitespace-nowrap">
-                  <div className="inline-flex items-center justify-end gap-1.5">
-                    <Link
-                      to={`/att/${r.referenceNo}`}
-                      title="View Details"
-                      className="p-1.5 text-slate-600 hover:text-chedBlue hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition shadow-2xs"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Link>
-
-                    <a
-                      href={printPath}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Print Document"
-                      className="p-1.5 text-slate-600 hover:text-emerald-700 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition shadow-2xs"
-                    >
-                      <Printer className="w-4 h-4" />
-                    </a>
-
-                    {/* Status Dropdown */}
+                  <div className="relative inline-block">
                     <select
-                      value={r.status || ''}
+                      value={r.status || 'Draft'}
                       onChange={(e) => onUpdateStatus(r, e.target.value)}
-                      className="text-2xs font-semibold bg-slate-50 border border-slate-300 text-slate-700 rounded-lg p-1 cursor-pointer outline-none focus:ring-1 focus:ring-chedBlue shadow-2xs"
+                      className={`text-2xs font-bold px-2.5 py-1 rounded-full border cursor-pointer appearance-none pr-5.5 focus:outline-none focus:ring-1 focus:ring-chedBlue shadow-2xs transition-colors ${getStatusBadgeClass(r.status)}`}
+                      title="Click to update status"
                     >
                       <option value="Draft">Draft</option>
                       <option value="Generated">Generated</option>
@@ -132,14 +132,47 @@ export const RecordsTable = ({
                       <option value="Cancelled">Cancelled</option>
                       <option value="Archived">Archived</option>
                     </select>
+                    <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-current opacity-60 text-[8px]">
+                      ▼
+                    </span>
+                  </div>
+                </td>
+
+                <td className="px-5 py-3.5 text-right whitespace-nowrap">
+                  <div className="inline-flex items-center justify-end gap-1.5">
+                    <Link
+                      to={`/att/${r.referenceNo}`}
+                      title="View Details"
+                      className="p-1.5 text-slate-600 hover:text-chedBlue hover:bg-slate-100 rounded-lg border border-slate-200/80 transition shadow-2xs"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </Link>
+
+                    <Link
+                      to={`/att/${r.referenceNo}/edit`}
+                      title="Edit ATT Record"
+                      className="p-1.5 text-slate-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg border border-slate-200/80 hover:border-amber-200 transition shadow-2xs"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </Link>
+
+                    <a
+                      href={printPath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Print Document"
+                      className="p-1.5 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg border border-slate-200/80 hover:border-emerald-200 transition shadow-2xs"
+                    >
+                      <Printer className="w-4 h-4" />
+                    </a>
 
                     <button
                       onClick={() => onArchiveRecord(r)}
                       title={r.archived ? 'Unarchive' : 'Archive'}
-                      className={`p-1.5 rounded-lg border border-transparent transition shadow-2xs ${
+                      className={`p-1.5 rounded-lg border transition shadow-2xs ${
                         r.archived
-                          ? 'text-amber-600 hover:bg-amber-50 hover:border-amber-200'
-                          : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200'
+                          ? 'text-amber-600 bg-amber-50 border-amber-200 hover:bg-amber-100'
+                          : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50 border-slate-200/80 hover:border-rose-200'
                       }`}
                     >
                       <Archive className="w-4 h-4" />

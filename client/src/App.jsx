@@ -22,6 +22,8 @@ export function App() {
           <Routes>
             <Route path="/" element={<MainPortal />} />
             <Route path="/att/new" element={<CreateATTPage />} />
+            <Route path="/att/:referenceNo/edit" element={<CreateATTPage />} />
+            <Route path="/att/edit/:referenceNo" element={<CreateATTPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/master-data" element={<MasterDataPage />} />
             <Route path="/att/:referenceNo" element={<ATTDetailsPage />} />

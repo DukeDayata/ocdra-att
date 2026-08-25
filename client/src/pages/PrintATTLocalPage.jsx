@@ -252,12 +252,12 @@ export const PrintATTLocalPage = () => {
           <tbody>
             <tr className="name-row">
               <td colSpan="3">
-                Name of Official/Employee:<br /><br /><br />
-                <div className="bold" style={{ fontSize: '11px' }} dangerouslySetInnerHTML={{ __html: personnelNamesHtml }}></div>
+                Name of Official/Employee:
+                <div className="bold" style={{ fontSize: '11px', marginTop: '4px' }} dangerouslySetInnerHTML={{ __html: personnelNamesHtml }}></div>
               </td>
               <td>
-                Position:<br /><br /><br />
-                <div className="bold" style={{ fontSize: '11px' }} dangerouslySetInnerHTML={{ __html: personnelPositionsHtml }}></div>
+                Position:
+                <div className="bold" style={{ fontSize: '11px', marginTop: '4px' }} dangerouslySetInnerHTML={{ __html: personnelPositionsHtml }}></div>
               </td>
             </tr>
 

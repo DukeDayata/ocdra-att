@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Printer, Archive, Calendar, MapPin, Users } from 'lucide-react';
+import { Eye, Edit3, Printer, Archive, Calendar, MapPin, Users } from 'lucide-react';
 import { StatusBadge } from '../common/StatusBadge';
 import { formatDate } from '../../utils/formatters';
 
@@ -9,6 +9,28 @@ export const RecordsGrid = ({
   onUpdateStatus,
   onArchiveRecord
 }) => {
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case 'Signed':
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100';
+      case 'Submitted':
+        return 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100';
+      case 'For Signature':
+        return 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100';
+      case 'Return':
+      case 'Disapproved':
+        return 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100';
+      case 'Generated':
+      case 'Draft':
+        return 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100';
+      case 'Cancelled':
+      case 'Archived':
+        return 'bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200';
+      default:
+        return 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200';
+    }
+  };
+
   return (
     <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {records.map((r) => {
@@ -71,13 +93,21 @@ export const RecordsGrid = ({
 
             {/* Actions Bar */}
             <div className="bg-slate-50/80 px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <Link
                   to={`/att/${r.referenceNo}`}
                   title="View Details"
-                  className="p-1.5 bg-white border border-slate-200 text-slate-700 hover:text-chedBlue hover:border-chedBlue rounded-xl shadow-2xs transition"
+                  className="p-1.5 bg-white border border-slate-200/80 text-slate-700 hover:text-chedBlue hover:border-chedBlue rounded-xl shadow-2xs transition"
                 >
                   <Eye className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to={`/att/${r.referenceNo}/edit`}
+                  title="Edit ATT Record"
+                  className="p-1.5 bg-white border border-slate-200/80 text-slate-700 hover:text-amber-600 hover:border-amber-400 rounded-xl shadow-2xs transition"
+                >
+                  <Edit3 className="w-4 h-4" />
                 </Link>
 
                 <a
@@ -85,7 +115,7 @@ export const RecordsGrid = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Print Document"
-                  className="p-1.5 bg-white border border-slate-200 text-slate-700 hover:text-emerald-700 hover:border-emerald-500 rounded-xl shadow-2xs transition"
+                  className="p-1.5 bg-white border border-slate-200/80 text-slate-700 hover:text-emerald-700 hover:border-emerald-500 rounded-xl shadow-2xs transition"
                 >
                   <Printer className="w-4 h-4" />
                 </a>
@@ -104,21 +134,27 @@ export const RecordsGrid = ({
               </div>
 
               {/* Status Quick Select */}
-              <select
-                value={r.status || ''}
-                onChange={(e) => onUpdateStatus(r, e.target.value)}
-                className="text-2xs font-semibold bg-white border border-slate-300 text-slate-800 rounded-lg p-1 cursor-pointer outline-none focus:ring-1 focus:ring-chedBlue shadow-2xs"
-              >
-                <option value="Draft">Draft</option>
-                <option value="Generated">Generated</option>
-                <option value="Submitted">Submitted</option>
-                <option value="For Signature">For Signature</option>
-                <option value="Signed">Signed</option>
-                <option value="Return">Return</option>
-                <option value="Disapproved">Disapproved</option>
-                <option value="Cancelled">Cancelled</option>
-                <option value="Archived">Archived</option>
-              </select>
+              <div className="relative inline-block">
+                <select
+                  value={r.status || 'Draft'}
+                  onChange={(e) => onUpdateStatus(r, e.target.value)}
+                  className={`text-2xs font-bold px-2.5 py-1 rounded-lg border cursor-pointer appearance-none pr-5 focus:outline-none focus:ring-1 focus:ring-chedBlue shadow-2xs transition-colors ${getStatusBadgeClass(r.status)}`}
+                  title="Click to update status"
+                >
+                  <option value="Draft">Draft</option>
+                  <option value="Generated">Generated</option>
+                  <option value="Submitted">Submitted</option>
+                  <option value="For Signature">For Signature</option>
+                  <option value="Signed">Signed</option>
+                  <option value="Return">Return</option>
+                  <option value="Disapproved">Disapproved</option>
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="Archived">Archived</option>
+                </select>
+                <span className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-current opacity-60 text-[8px]">
+                  ▼
+                </span>
+              </div>
             </div>
           </div>
         );
