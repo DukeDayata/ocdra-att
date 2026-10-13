@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const getApiBaseUrl = () => {
+  // When running locally in development, connect to local backend on port 5000
+  if (
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ) {
+    if (import.meta.env.VITE_API_BASE_URL && !import.meta.env.VITE_API_BASE_URL.includes('onrender.com')) {
+      return import.meta.env.VITE_API_BASE_URL;
+    }
+    return 'http://localhost:5000/api';
+  }
+  return import.meta.env.VITE_API_BASE_URL || 'https://ocdra-att.onrender.com/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -8,6 +22,18 @@ const api = axios.create({
     'Content-Type': 'application/json'
   }
 });
+
+// Request interceptor to attach JWT token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('att_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor for unified error messages
 api.interceptors.response.use(
@@ -20,6 +46,13 @@ api.interceptors.response.use(
     return Promise.reject(new Error(message));
   }
 );
+
+// Auth API Endpoints
+export const authApi = {
+  login: (credentials) => api.post('/auth/login', credentials),
+  getMe: () => api.get('/auth/me'),
+  changePassword: (data) => api.post('/auth/change-password', data)
+};
 
 // ATT API Endpoints
 export const attApi = {

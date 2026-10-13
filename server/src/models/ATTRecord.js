@@ -98,6 +98,11 @@ const expenseSchema = new mongoose.Schema(
     totalAmountRaw: {
       type: String,
       default: ''
+    },
+    expenseType: {
+      type: String,
+      enum: ['Airfare', 'Transportation'],
+      default: 'Airfare'
     }
   },
   { _id: false }
@@ -185,7 +190,12 @@ const attRecordSchema = new mongoose.Schema(
     requestedBy: requestedBySchema,
     fundsAvailable: {
       type: String,
-      default: 'N/A',
+      default: 'Diana C. Aguilar',
+      trim: true
+    },
+    fundsAvailablePosition: {
+      type: String,
+      default: 'Chief Administrative Officer',
       trim: true
     },
     sourceOfFunds: {

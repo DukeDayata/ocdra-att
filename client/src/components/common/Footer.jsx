@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Shield, Sparkles } from 'lucide-react';
+import { Shield, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const Footer = () => {
   const location = useLocation();
@@ -10,29 +10,34 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="bg-slate-900 text-slate-400 text-xs no-print border-t border-slate-800 mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-white px-2.5 py-1 rounded-xl border border-white/20 shadow-sm shrink-0">
+    <footer className="bg-gradient-to-r from-[#06172A] via-[#081F3B] to-[#0A2548] text-slate-400 text-xs no-print border-t border-white/10 mt-20 shadow-2xl">
+      {/* Accent top gold line */}
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-2 bg-white/95 px-2.5 py-1.5 rounded-2xl border border-white/30 shadow-md shadow-black/20 shrink-0">
             <img src="/assets/ched_logo.png" alt="CHED Logo" className="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0" />
             <div className="w-px h-5 sm:h-6 bg-slate-200 shrink-0"></div>
             <img src="/assets/ocdra-logo.png" alt="OCDRA Logo" className="h-6 sm:h-7 w-auto object-contain shrink-0" />
           </div>
           <div>
-            <div className="font-bold text-slate-200">Commission on Higher Education</div>
-            <div className="text-[11px] text-slate-400">Office of Commissioner Apag &bull; OCDRA &bull; ATT Generator Platform</div>
+            <div className="font-extrabold text-white text-sm tracking-tight">Commission on Higher Education</div>
+            <div className="text-[11px] text-slate-300 font-medium">Office of Commissioner Apag &bull; OCDRA &bull; ATT Generator Platform</div>
           </div>
         </div>
 
-        <div className="flex items-center gap-4 text-slate-400 text-[11px]">
-          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            System Live & Operating
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-300 text-xs">
+          <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 shadow-sm backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            <span className="font-semibold text-[11px]">System Operating &bull; Active</span>
           </span>
-          <span>v2.0 &bull; 2026</span>
+          <span className="text-slate-400 text-[11px] font-mono">OCDRA ATT v2.5 &bull; 2026</span>
         </div>
       </div>
     </footer>
   );
 };
-

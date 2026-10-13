@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, Calendar, LayoutGrid, List, RotateCcw } from 'lucide-react';
+import { Search, Filter, Calendar, LayoutGrid, List, RotateCcw, SlidersHorizontal } from 'lucide-react';
 
 export const RecordFilters = ({
   filters,
@@ -17,7 +17,7 @@ export const RecordFilters = ({
     filters.endDate;
 
   return (
-    <div className="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200/90 mb-6 space-y-3.5">
+    <div className="bg-white p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200/90 mb-6 space-y-4">
       <div className="flex flex-col lg:flex-row gap-3 items-center justify-between">
         {/* Search Input */}
         <div className="relative w-full lg:max-w-md">
@@ -26,8 +26,8 @@ export const RecordFilters = ({
             type="search"
             value={filters.search}
             onChange={(e) => onFilterChange('search', e.target.value)}
-            placeholder="Search reference, personnel, destination, purpose..."
-            className="w-full min-h-11 pl-10 pr-4 py-2 bg-slate-50/80 border border-slate-300 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-chedBlue/20 focus:border-chedBlue transition shadow-2xs"
+            placeholder="Search by reference, personnel, destination, purpose..."
+            className="w-full min-h-11 pl-10 pr-4 py-2 bg-slate-50 border border-slate-200/90 rounded-2xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition shadow-2xs font-medium"
           />
         </div>
 
@@ -35,26 +35,28 @@ export const RecordFilters = ({
         <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-end">
           {/* View Mode Switcher */}
           {onViewModeChange && (
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 mr-1">
+            <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 mr-1 shadow-inner">
               <button
                 type="button"
                 onClick={() => onViewModeChange('table')}
-                className={`p-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
-                  viewMode === 'table' ? 'bg-white text-chedBlue shadow-xs' : 'text-slate-500 hover:text-slate-800'
+                className={`p-1.5 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  viewMode === 'table' ? 'bg-white text-blue-700 shadow-sm font-extrabold' : 'text-slate-500 hover:text-slate-900'
                 }`}
                 title="Table View"
               >
                 <List className="w-4 h-4" />
+                <span className="hidden sm:inline">Table</span>
               </button>
               <button
                 type="button"
                 onClick={() => onViewModeChange('grid')}
-                className={`p-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
-                  viewMode === 'grid' ? 'bg-white text-chedBlue shadow-xs' : 'text-slate-500 hover:text-slate-800'
+                className={`p-1.5 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  viewMode === 'grid' ? 'bg-white text-blue-700 shadow-sm font-extrabold' : 'text-slate-500 hover:text-slate-900'
                 }`}
                 title="Grid Card View"
               >
                 <LayoutGrid className="w-4 h-4" />
+                <span className="hidden sm:inline">Cards</span>
               </button>
             </div>
           )}
@@ -63,7 +65,7 @@ export const RecordFilters = ({
           <select
             value={filters.attType}
             onChange={(e) => onFilterChange('attType', e.target.value)}
-            className="min-h-10 bg-slate-50 border border-slate-300 text-slate-800 text-xs sm:text-sm rounded-xl px-3 focus:ring-chedBlue focus:border-chedBlue cursor-pointer shadow-2xs"
+            className="min-h-10 bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm font-semibold rounded-2xl px-3.5 focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer shadow-2xs"
           >
             <option value="All">All Types</option>
             <option value="Local">Local Travel</option>
@@ -74,7 +76,7 @@ export const RecordFilters = ({
           <select
             value={filters.status}
             onChange={(e) => onFilterChange('status', e.target.value)}
-            className="min-h-10 bg-slate-50 border border-slate-300 text-slate-800 text-xs sm:text-sm rounded-xl px-3 focus:ring-chedBlue focus:border-chedBlue cursor-pointer shadow-2xs"
+            className="min-h-10 bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm font-semibold rounded-2xl px-3.5 focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer shadow-2xs"
           >
             <option value="All">All Statuses</option>
             <option value="Draft">Draft</option>
@@ -92,7 +94,7 @@ export const RecordFilters = ({
           <select
             value={filters.sortBy}
             onChange={(e) => onFilterChange('sortBy', e.target.value)}
-            className="min-h-10 bg-slate-50 border border-slate-300 text-slate-800 text-xs sm:text-sm rounded-xl px-3 focus:ring-chedBlue focus:border-chedBlue cursor-pointer shadow-2xs"
+            className="min-h-10 bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm font-semibold rounded-2xl px-3.5 focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer shadow-2xs"
           >
             <option value="createdAt">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -102,11 +104,11 @@ export const RecordFilters = ({
 
           {/* Rows Per Page */}
           <div className="flex items-center gap-1.5 ml-1">
-            <span className="text-2xs text-slate-400 font-extrabold uppercase tracking-wider">Rows:</span>
+            <span className="text-2xs text-slate-400 font-extrabold uppercase tracking-wider">Show:</span>
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="min-h-10 bg-slate-50 border border-slate-300 text-xs sm:text-sm rounded-xl px-2 focus:ring-chedBlue focus:border-chedBlue cursor-pointer shadow-2xs font-semibold"
+              className="min-h-10 bg-slate-50 border border-slate-200 text-xs sm:text-sm rounded-2xl px-2.5 focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer shadow-2xs font-extrabold"
             >
               <option value="10">10</option>
               <option value="25">25</option>
@@ -118,25 +120,26 @@ export const RecordFilters = ({
       </div>
 
       {/* Date Range Inputs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs text-slate-600">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-3.5 border-t border-slate-100 text-xs text-slate-600">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-3.5 h-3.5 text-chedBlue" />
-            <span className="font-semibold text-slate-600">Date From:</span>
+          <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/80">
+            <Calendar className="w-3.5 h-3.5 text-blue-600" />
+            <span className="font-bold text-slate-600 text-2xs uppercase tracking-wider">Date From:</span>
             <input
               type="date"
               value={filters.startDate || ''}
               onChange={(e) => onFilterChange('startDate', e.target.value)}
-              className="border border-slate-300 rounded-xl p-1.5 px-2 text-xs bg-slate-50 focus:bg-white focus:ring-1 focus:ring-chedBlue"
+              className="border-0 bg-transparent text-xs text-slate-800 font-medium focus:outline-none focus:ring-0 p-0"
             />
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-600">Date To:</span>
+          <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/80">
+            <Calendar className="w-3.5 h-3.5 text-blue-600" />
+            <span className="font-bold text-slate-600 text-2xs uppercase tracking-wider">Date To:</span>
             <input
               type="date"
               value={filters.endDate || ''}
               onChange={(e) => onFilterChange('endDate', e.target.value)}
-              className="border border-slate-300 rounded-xl p-1.5 px-2 text-xs bg-slate-50 focus:bg-white focus:ring-1 focus:ring-chedBlue"
+              className="border-0 bg-transparent text-xs text-slate-800 font-medium focus:outline-none focus:ring-0 p-0"
             />
           </div>
         </div>
@@ -151,14 +154,13 @@ export const RecordFilters = ({
               onFilterChange('endDate', '');
               onFilterChange('sortBy', 'createdAt');
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-bold rounded-xl transition border border-rose-200"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 active:scale-95 text-xs font-bold rounded-xl transition border border-rose-200/80 shadow-2xs"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            Clear Filters
+            Reset All Filters
           </button>
         )}
       </div>
     </div>
   );
 };
-

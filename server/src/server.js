@@ -10,14 +10,18 @@ import { errorHandler } from './middleware/errorHandler.js';
 import attRoutes from './routes/attRoutes.js';
 import personnelRoutes from './routes/personnelRoutes.js';
 import approverRoutes from './routes/approverRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { seedDefaultAdmin } from './controllers/authController.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB Atlas
-connectDB();
+// Connect to MongoDB Atlas and seed default administrator
+connectDB().then(() => {
+  seedDefaultAdmin();
+});
 
 // Security and utility middleware
 app.use(helmet());
@@ -54,6 +58,7 @@ app.get('/health', (req, res) => {
 });
 
 // API Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/att', attRoutes);
 app.use('/api/personnel', personnelRoutes);
 app.use('/api/approvers', approverRoutes);

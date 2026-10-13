@@ -27,7 +27,8 @@ export const createATTSchema = z.object({
       position: z.string().optional()
     })
     .optional(),
-  fundsAvailable: z.string().default('N/A'),
+  fundsAvailable: z.string().default('Diana C. Aguilar'),
+  fundsAvailablePosition: z.string().optional(),
   sourceOfFunds: z.string().default('Personal'),
   expenses: z
     .object({
@@ -38,7 +39,8 @@ export const createATTSchema = z.object({
       airfareRaw: z.string().optional(),
       perDiemRaw: z.string().optional(),
       preTravelRaw: z.string().optional(),
-      totalAmountRaw: z.string().optional()
+      totalAmountRaw: z.string().optional(),
+      expenseType: z.string().optional()
     })
     .optional(),
   paymentMode: z.enum(['None', 'Cash Advance', 'Reimbursement', '']).default(''),

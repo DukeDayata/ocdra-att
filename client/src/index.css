@@ -4,10 +4,11 @@
 
 @layer base {
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     background-color: #f8fafc;
-    color: #1e293b;
+    color: #0f172a;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.011em;
   }
 }
 
@@ -27,27 +28,71 @@
   background: #94a3b8;
 }
 
-/* Utility Glassmorphism & Animations */
+/* Ambient Radial Mesh Background */
+.mesh-bg {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(15, 63, 126, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.04) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.03) 0px, transparent 50%);
+}
+
+/* Premium Glass & Surface Tokens */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .glass-nav {
-  background: rgba(10, 37, 64, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(7, 26, 46, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.1);
+  border-color: rgba(15, 63, 126, 0.25);
+}
+
+.glass-card-elevated {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 20px 48px -10px rgba(15, 23, 42, 0.08);
 }
 
 .gradient-heading {
-  background: linear-gradient(135deg, #0A2540 0%, #123B72 100%);
+  background: linear-gradient(135deg, #071A2E 0%, #0F3F7E 70%, #1D4ED8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom print media overrides */
+.gradient-gold-heading {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Micro Animations */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
+}
+
+/* Custom print media overrides - Do NOT modify */
 @media print {
   body {
     background-color: #ffffff !important;
@@ -57,4 +102,3 @@
     display: none !important;
   }
 }
-

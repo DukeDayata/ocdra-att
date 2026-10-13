@@ -138,24 +138,29 @@ export const AdminDashboard = () => {
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-slate-200 gap-4">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between pb-5 border-b border-slate-200/80 gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-            <div className="p-2 bg-blue-50 text-chedBlue rounded-xl border border-blue-100">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-2xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/80">
+              Executive Administration
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+            <div className="p-2.5 bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 rounded-2xl border border-blue-200/80 shadow-sm">
               <LayoutDashboard className="w-6 h-6" />
             </div>
-            ATT Admin Dashboard
+            ATT Records Dashboard
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">Manage, search, filter, and verify all Authority to Travel (ATT) records.</p>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">Manage, search, filter, approve, and verify all Authority to Travel (ATT) orders.</p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link
             to="/att/new"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white rounded-xl font-extrabold text-xs shadow-md shadow-emerald-600/20 transition"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white rounded-2xl font-black text-xs shadow-md shadow-emerald-600/25 transition-all"
           >
             <Plus className="w-4 h-4" />
-            New ATT Request
+            <span>Create ATT Request</span>
           </Link>
 
           <button
@@ -163,10 +168,10 @@ export const AdminDashboard = () => {
               fetchStats();
               fetchRecords();
             }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-chedBlue hover:bg-chedNavy active:scale-[0.98] rounded-xl shadow-md shadow-chedBlue/20 transition"
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 active:scale-95 rounded-2xl shadow-sm transition"
           >
-            <RefreshCw className="w-4 h-4" />
-            Refresh
+            <RefreshCw className="w-4 h-4 text-blue-600" />
+            <span>Refresh</span>
           </button>
         </div>
       </header>
@@ -185,7 +190,7 @@ export const AdminDashboard = () => {
       />
 
       {/* Records Table / Grid Section */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative min-h-[300px]">
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200/90 overflow-hidden relative min-h-[300px]">
         {loading ? (
           <LoadingSkeleton count={6} />
         ) : errorMsg ? (

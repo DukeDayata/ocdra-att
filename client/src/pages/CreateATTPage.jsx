@@ -43,7 +43,8 @@ export const CreateATTPage = () => {
       travelClassification: 'Official Business',
       datePrepared: todayStr,
       requestedBy: { name: '', position: '', personnelId: '' },
-      fundsAvailable: 'N/A',
+      fundsAvailable: 'Diana C. Aguilar',
+      fundsAvailablePosition: 'Chief Administrative Officer',
       sourceOfFunds: '',
       expenses: { airfare: '', perDiem: '', preTravel: '', totalAmount: '' },
       paymentMode: '',
@@ -91,7 +92,8 @@ export const CreateATTPage = () => {
               position: rec.requestedBy?.position || '',
               personnelId: rec.requestedBy?.personnelId || ''
             },
-            fundsAvailable: rec.fundsAvailable || 'N/A',
+            fundsAvailable: rec.fundsAvailable || 'Diana C. Aguilar',
+            fundsAvailablePosition: rec.fundsAvailablePosition || (rec.fundsAvailable === 'Diana C. Aguilar' ? 'Chief Administrative Officer' : ''),
             sourceOfFunds: rec.sourceOfFunds || '',
             expenses: {
               airfare: rec.expenses?.airfare ?? '',
@@ -196,14 +198,14 @@ export const CreateATTPage = () => {
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-chedNavy via-[#0f315a] to-chedBlue p-6 sm:p-8 rounded-3xl text-white shadow-xl shadow-chedNavy/10 border border-white/10 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-br from-[#06172A] via-[#0A2647] to-[#0F3F7E] p-6 sm:p-8 rounded-3xl text-white shadow-xl shadow-[#06172A]/20 border border-white/15 relative overflow-hidden">
         <div className="absolute right-0 top-0 opacity-10 pointer-events-none p-4">
           {isEditMode ? <Edit3 className="w-36 h-36 text-white" /> : <FilePlus className="w-36 h-36 text-white" />}
         </div>
 
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-2">
-            <span className="bg-white/10 text-chedGold text-2xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border border-white/15">
+            <span className="bg-white/10 text-amber-400 text-2xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full border border-white/15 shadow-inner">
               {isEditMode ? `Editing Record: ${referenceNo}` : 'Office of Commissioner Apag • Official Form'}
             </span>
           </div>
@@ -215,21 +217,21 @@ export const CreateATTPage = () => {
               </>
             ) : (
               <>
-                <FilePlus className="w-8 h-8 text-chedGold" />
+                <FilePlus className="w-8 h-8 text-amber-400" />
                 Create Authority to Travel (ATT)
               </>
             )}
           </h1>
-          <p className="text-blue-100/90 text-xs sm:text-sm mt-1">
+          <p className="text-blue-100/90 text-xs sm:text-sm mt-1 font-medium">
             {isEditMode
               ? `Update travel parameters, personnel manifest, expenses, or signatories for ${referenceNo}.`
-              : 'Complete the official travel parameters, personnel manifest, and signatory matrix.'}
+              : 'Complete official travel parameters, personnel manifest, expense allocation, and signatory matrix.'}
           </p>
         </div>
 
         <button
           onClick={() => navigate(-1)}
-          className="relative z-10 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl border border-white/20 transition shadow-sm"
+          className="relative z-10 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-2xl border border-white/20 transition shadow-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           {isEditMode ? 'Cancel / Back' : 'Back to Dashboard'}
@@ -237,59 +239,59 @@ export const CreateATTPage = () => {
       </div>
 
       {/* 4-Step Form Process Visual Bar */}
-      <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200/90 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-        <div className="flex items-center gap-3 p-2 bg-blue-50/60 rounded-xl border border-blue-100">
-          <div className="w-7 h-7 rounded-lg bg-chedBlue text-white font-black text-xs flex items-center justify-center shrink-0">
+      <div className="bg-white p-4 rounded-3xl shadow-sm border border-slate-200/90 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+        <div className="flex items-center gap-3 p-3 bg-blue-50/70 rounded-2xl border border-blue-100/80 shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-blue-700 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
             1
           </div>
           <div>
             <div className="font-extrabold text-slate-800 flex items-center gap-1">
-              <MapPin className="w-3 h-3 text-chedBlue" /> Parameters
+              <MapPin className="w-3 h-3 text-blue-700" /> Parameters
             </div>
-            <div className="text-[10px] text-slate-500 truncate">{destination || 'Destination & Dates'}</div>
+            <div className="text-[10px] text-slate-500 font-medium truncate">{destination || 'Destination & Dates'}</div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-2 bg-indigo-50/60 rounded-xl border border-indigo-100">
-          <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-3 p-3 bg-indigo-50/70 rounded-2xl border border-indigo-100/80 shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
             2
           </div>
           <div>
             <div className="font-extrabold text-slate-800 flex items-center gap-1">
               <Users className="w-3 h-3 text-indigo-600" /> Manifest
             </div>
-            <div className="text-[10px] text-slate-500">{selectedPersonnel.length} personnel added</div>
+            <div className="text-[10px] text-slate-500 font-medium">{selectedPersonnel.length} personnel added</div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-2 bg-emerald-50/60 rounded-xl border border-emerald-100">
-          <div className="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-3 p-3 bg-emerald-50/70 rounded-2xl border border-emerald-100/80 shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
             3
           </div>
           <div>
             <div className="font-extrabold text-slate-800 flex items-center gap-1">
               <DollarSign className="w-3 h-3 text-emerald-600" /> Expenses
             </div>
-            <div className="text-[10px] text-slate-500">Fund Sources</div>
+            <div className="text-[10px] text-slate-500 font-medium">Fund Sources</div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-2 bg-amber-50/60 rounded-xl border border-amber-100">
-          <div className="w-7 h-7 rounded-lg bg-amber-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-3 p-3 bg-amber-50/70 rounded-2xl border border-amber-100/80 shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-amber-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
             4
           </div>
           <div>
             <div className="font-extrabold text-slate-800 flex items-center gap-1">
               <PenTool className="w-3 h-3 text-amber-600" /> Signatories
             </div>
-            <div className="text-[10px] text-slate-500">Recommending & Approval</div>
+            <div className="text-[10px] text-slate-500 font-medium">Approval Matrix</div>
           </div>
         </div>
       </div>
 
       {loadingMasterData ? (
         <div className="bg-white p-12 rounded-3xl shadow-sm border border-slate-200 text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-chedBlue mx-auto mb-3" />
+          <Loader2 className="w-10 h-10 animate-spin text-blue-700 mx-auto mb-3" />
           <p className="text-sm font-bold text-slate-700">Loading master personnel data from database...</p>
         </div>
       ) : (
@@ -325,37 +327,37 @@ export const CreateATTPage = () => {
           />
 
           {/* Form Actions Footer Bar */}
-          <div className="sticky bottom-4 z-20 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="sticky bottom-4 z-20 bg-white/95 backdrop-blur-xl p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-slate-500 font-medium">
-              <span className="font-bold text-slate-800">
+              <span className="font-extrabold text-slate-900">
                 {isEditMode ? 'Ready to Update:' : 'Form Ready:'}
               </span>{' '}
-              {isEditMode ? 'Verify updated details and click Save Changes.' : 'Check all details before generating the official document.'}
+              {isEditMode ? 'Verify updated details and click Save Changes.' : 'Check all entries before generating the official document.'}
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full sm:w-auto text-white rounded-xl px-8 py-3.5 font-extrabold text-xs sm:text-sm tracking-wide shadow-lg transition-all duration-150 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`w-full sm:w-auto text-white rounded-2xl px-8 py-3.5 font-black text-xs sm:text-sm tracking-wide shadow-xl transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
                 isEditMode
-                  ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-600/25'
-                  : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/25'
+                  ? 'bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 shadow-amber-600/30'
+                  : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-600/30'
               }`}
             >
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  {isEditMode ? 'Saving Changes...' : 'Generating ATT Record...'}
+                  <span>{isEditMode ? 'Saving Changes...' : 'Generating ATT Record...'}</span>
                 </>
               ) : isEditMode ? (
                 <>
                   <Save className="w-5 h-5" />
-                  Save Changes
+                  <span>Save Changes</span>
                 </>
               ) : (
                 <>
                   <FilePlus className="w-5 h-5" />
-                  Generate ATT Record
+                  <span>Generate ATT Record</span>
                 </>
               )}
             </button>
