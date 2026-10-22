@@ -575,7 +575,31 @@ export const PrintATTAbroadPage = () => {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 mb-1">Funds Available Signatory</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-300">Funds Available Signatory</label>
+                  <div className="inline-flex gap-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFundsAvailable('Diana C. Aguilar');
+                        setFundsAvailablePosition('Chief Administrative Officer');
+                      }}
+                      className="px-1.5 py-0.5 text-[9px] font-bold text-blue-400 hover:text-blue-300 bg-slate-700 hover:bg-slate-600 rounded transition"
+                    >
+                      Diana
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFundsAvailable('N/A');
+                        setFundsAvailablePosition('');
+                      }}
+                      className="px-1.5 py-0.5 text-[9px] font-bold text-amber-400 hover:text-amber-300 bg-slate-700 hover:bg-slate-600 rounded transition"
+                    >
+                      N/A
+                    </button>
+                  </div>
+                </div>
                 <input
                   type="text"
                   value={fundsAvailable}
@@ -1148,16 +1172,34 @@ export const PrintATTAbroadPage = () => {
                     right: '6px'
                   }}
                 >
-                  {fundsAvailable && fundsAvailable !== 'N/A' && (
-                    <div style={{ textAlign: 'center', marginBottom: '4px' }}>
-                      <div style={{ fontWeight: 'bold', fontSize: '11.5px', textTransform: 'uppercase' }}>
-                        {fundsAvailable}
-                      </div>
-                      {fundsAvailablePosition && (
-                        <div style={{ fontSize: '10px' }}>{fundsAvailablePosition}</div>
-                      )}
+                  <div
+                    onClick={() => {
+                      if (!fundsAvailable || fundsAvailable.trim().toUpperCase() === 'N/A') {
+                        setFundsAvailable('Diana C. Aguilar');
+                        setFundsAvailablePosition('Chief Administrative Officer');
+                      } else {
+                        setFundsAvailable('N/A');
+                        setFundsAvailablePosition('');
+                      }
+                    }}
+                    className="cursor-pointer select-none group"
+                    title="Click to toggle between Diana C. Aguilar and N/A"
+                    style={{ textAlign: 'center', marginBottom: '6px' }}
+                  >
+                    <div
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: (fundsAvailable && fundsAvailable.trim().toUpperCase() === 'N/A') ? '13px' : '11.5px',
+                        textTransform: 'uppercase',
+                        letterSpacing: (fundsAvailable && fundsAvailable.trim().toUpperCase() === 'N/A') ? '1px' : 'normal'
+                      }}
+                    >
+                      {fundsAvailable || 'N/A'}
                     </div>
-                  )}
+                    {fundsAvailablePosition && fundsAvailable && fundsAvailable.trim().toUpperCase() !== 'N/A' && (
+                      <div style={{ fontSize: '10px' }}>{fundsAvailablePosition}</div>
+                    )}
+                  </div>
 
                   <div style={{ textAlign: 'left', paddingLeft: '4px' }}>
                     <div style={{ fontSize: '10px', fontWeight: 'bold' }}>Source of Funds:</div>

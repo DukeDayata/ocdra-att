@@ -1,10 +1,19 @@
 import mongoose from 'mongoose';
 
+const castObjectIdOrNull = (val) => {
+  if (!val || val === '' || !mongoose.Types.ObjectId.isValid(val)) {
+    return null;
+  }
+  return val;
+};
+
 const personnelSnapshotSchema = new mongoose.Schema(
   {
     personnelId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Personnel'
+      ref: 'Personnel',
+      default: null,
+      set: castObjectIdOrNull
     },
     name: {
       type: String,
@@ -29,7 +38,9 @@ const requestedBySchema = new mongoose.Schema(
   {
     personnelId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Personnel'
+      ref: 'Personnel',
+      default: null,
+      set: castObjectIdOrNull
     },
     name: {
       type: String,
@@ -49,7 +60,9 @@ const approvedBySchema = new mongoose.Schema(
   {
     approverId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Approver'
+      ref: 'Approver',
+      default: null,
+      set: castObjectIdOrNull
     },
     name: {
       type: String,

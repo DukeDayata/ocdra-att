@@ -1,11 +1,16 @@
 import { z } from 'zod';
 
+const optionalObjectId = z
+  .union([z.string(), z.null(), z.undefined()])
+  .optional()
+  .transform((val) => (val && typeof val === 'string' && val.trim() !== '' ? val.trim() : null));
+
 export const createATTSchema = z.object({
   attType: z.enum(['Local', 'Abroad']),
   personnel: z
     .array(
       z.object({
-        personnelId: z.string().optional(),
+        personnelId: optionalObjectId,
         name: z.string().min(1, 'Personnel name is required'),
         position: z.string().min(1, 'Personnel position is required'),
         office: z.string().optional()
@@ -22,7 +27,7 @@ export const createATTSchema = z.object({
   datePrepared: z.string().optional(),
   requestedBy: z
     .object({
-      personnelId: z.string().optional(),
+      personnelId: optionalObjectId,
       name: z.string().optional(),
       position: z.string().optional()
     })
@@ -46,7 +51,7 @@ export const createATTSchema = z.object({
   paymentMode: z.enum(['None', 'Cash Advance', 'Reimbursement', '']).default(''),
   approvedBy: z
     .object({
-      approverId: z.string().optional(),
+      approverId: optionalObjectId,
       name: z.string().optional(),
       position: z.string().optional()
     })

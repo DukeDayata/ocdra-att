@@ -76,6 +76,16 @@ export const CreateATTPage = () => {
           const rec = recRes.data;
           setExistingRecord(rec);
 
+          let initialApproverId = rec.approvedBy?.approverId || '';
+          if (!initialApproverId && rec.approvedBy?.name && aData.length > 0) {
+            const matchedApp = aData.find(
+              (a) => a.name.toLowerCase().trim() === rec.approvedBy.name.toLowerCase().trim()
+            );
+            if (matchedApp) {
+              initialApproverId = matchedApp._id;
+            }
+          }
+
           // Populate form fields with existing record
           reset({
             attType: rec.attType || 'Local',
@@ -109,7 +119,7 @@ export const CreateATTPage = () => {
             approvedBy: {
               name: rec.approvedBy?.name || '',
               position: rec.approvedBy?.position || '',
-              approverId: rec.approvedBy?.approverId || ''
+              approverId: initialApproverId
             }
           });
 
@@ -166,11 +176,21 @@ export const CreateATTPage = () => {
       const payload = {
         ...formData,
         personnel: selectedPersonnel.map((p) => ({
-          personnelId: p._id || p.personnelId,
+          personnelId: (p._id || p.personnelId) ? p._id || p.personnelId : null,
           name: p.name,
           position: p.position,
           office: p.office || formData.officeStation
-        }))
+        })),
+        requestedBy: {
+          name: formData.requestedBy?.name || '',
+          position: formData.requestedBy?.position || '',
+          personnelId: formData.requestedBy?.personnelId || null
+        },
+        approvedBy: {
+          name: formData.approvedBy?.name || '',
+          position: formData.approvedBy?.position || '',
+          approverId: formData.approvedBy?.approverId || null
+        }
       };
 
       if (isEditMode && existingRecord) {

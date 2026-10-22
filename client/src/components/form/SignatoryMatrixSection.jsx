@@ -40,6 +40,22 @@ export const SignatoryMatrixSection = ({
     }
   }, [approvedBySelect, approverList, setValue, watch]);
 
+  // Sync approvedBy.approverId when approver list is loaded and name is present but id is missing
+  useEffect(() => {
+    if (approverList.length > 0) {
+      const currentName = watch('approvedBy.name');
+      const currentId = watch('approvedBy.approverId');
+      if (currentName && !currentId) {
+        const found = approverList.find(
+          (a) => a.name.toLowerCase().trim() === currentName.toLowerCase().trim()
+        );
+        if (found) {
+          setValue('approvedBy.approverId', found._id);
+        }
+      }
+    }
+  }, [approverList, watch, setValue]);
+
   return (
     <div className="bg-white rounded-3xl shadow-sm border border-slate-200/90 p-6 sm:p-8 space-y-6">
       <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100">

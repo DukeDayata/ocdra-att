@@ -3,9 +3,41 @@ import ATTRecord from '../models/ATTRecord.js';
 import { generateUniqueReferenceNo } from '../utils/referenceGenerator.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
 
+const sanitizeATTData = (input = {}) => {
+  const data = { ...input };
+
+  if (data.approvedBy) {
+    const app = { ...data.approvedBy };
+    if (!app.approverId || !mongoose.Types.ObjectId.isValid(app.approverId)) {
+      app.approverId = null;
+    }
+    data.approvedBy = app;
+  }
+
+  if (data.requestedBy) {
+    const reqBy = { ...data.requestedBy };
+    if (!reqBy.personnelId || !mongoose.Types.ObjectId.isValid(reqBy.personnelId)) {
+      reqBy.personnelId = null;
+    }
+    data.requestedBy = reqBy;
+  }
+
+  if (Array.isArray(data.personnel)) {
+    data.personnel = data.personnel.map((p) => {
+      const pCopy = { ...p };
+      if (!pCopy.personnelId || !mongoose.Types.ObjectId.isValid(pCopy.personnelId)) {
+        pCopy.personnelId = null;
+      }
+      return pCopy;
+    });
+  }
+
+  return data;
+};
+
 export const createATT = async (req, res, next) => {
   try {
-    const data = req.body;
+    const data = sanitizeATTData(req.body);
 
     // Generate unique reference number
     const referenceNo = await generateUniqueReferenceNo(data.attType);
@@ -207,7 +239,7 @@ export const getATTById = async (req, res, next) => {
 export const updateATT = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updateData = req.body;
+    const updateData = sanitizeATTData(req.body);
 
     let record = null;
     if (mongoose.Types.ObjectId.isValid(id)) {
