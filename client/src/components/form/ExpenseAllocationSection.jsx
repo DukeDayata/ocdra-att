@@ -47,16 +47,30 @@ export const ExpenseAllocationSection = ({ register, watch, setValue, attType })
 
   // Set default values when ATT Type changes
   useEffect(() => {
+    const classification = watch('travelClassification');
+    const isPersonal = classification === 'Personal Travel' || classification === 'Personal Time';
+    const isTimeOnly = classification === 'Official Time Only';
+
     if (isLocal) {
       setValue('paymentMode', '');
       setValue('fundsAvailable', 'Diana C. Aguilar');
       setValue('fundsAvailablePosition', 'Chief Administrative Officer');
+      if (isPersonal) {
+        setValue('sourceOfFunds', 'Personal');
+      }
     } else {
-      setValue('paymentMode', 'Reimbursement');
+      if (isPersonal || isTimeOnly) {
+        setValue('paymentMode', '');
+      } else {
+        setValue('paymentMode', 'Reimbursement');
+      }
       setValue('fundsAvailable', 'Diana C. Aguilar');
       setValue('fundsAvailablePosition', 'Chief Administrative Officer');
+      if (isPersonal) {
+        setValue('sourceOfFunds', 'Personal');
+      }
     }
-  }, [attType, isLocal, setValue]);
+  }, [attType, isLocal, setValue, watch]);
 
   const handleSelectOption = (option) => {
     setLocalOption(option);
@@ -87,46 +101,44 @@ export const ExpenseAllocationSection = ({ register, watch, setValue, attType })
           </div>
         </div>
 
-        {/* Local Travel Option Switcher */}
-        {isLocal && (
-          <div className="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200/80 self-start sm:self-auto shadow-inner">
-            <button
-              type="button"
-              onClick={() => handleSelectOption('expenses')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                localOption === 'expenses'
-                  ? 'bg-white text-emerald-700 shadow-sm font-black'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              <DollarSign className="w-3.5 h-3.5" />
-              <span>Put Expense Allocation</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleSelectOption('no_ched_fund')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                localOption === 'no_ched_fund'
-                  ? 'bg-rose-600 text-white shadow-sm font-black'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              <Ban className="w-3.5 h-3.5" />
-              <span>No CHED Fund Incurred</span>
-            </button>
-          </div>
-        )}
+        {/* Travel Option Switcher */}
+        <div className="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200/80 self-start sm:self-auto shadow-inner">
+          <button
+            type="button"
+            onClick={() => handleSelectOption('expenses')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              localOption === 'expenses'
+                ? 'bg-white text-emerald-700 shadow-sm font-black'
+                : 'text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            <DollarSign className="w-3.5 h-3.5" />
+            <span>Put Expense Allocation</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSelectOption('no_ched_fund')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              localOption === 'no_ched_fund'
+                ? 'bg-rose-600 text-white shadow-sm font-black'
+                : 'text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            <Ban className="w-3.5 h-3.5" />
+            <span>No CHED Fund Incurred</span>
+          </button>
+        </div>
       </div>
 
-      {isLocal && localOption === 'no_ched_fund' ? (
+      {localOption === 'no_ched_fund' ? (
         <div className="p-8 rounded-3xl bg-rose-50/70 border-2 border-rose-200/90 text-center space-y-2.5">
           <div className="inline-flex items-center justify-center p-3 bg-rose-100 text-rose-700 rounded-2xl shadow-sm mb-1">
             <Ban className="w-6 h-6" />
           </div>
           <h3 className="text-base font-black text-rose-900 tracking-wide">NO CHED FUND INCURRED</h3>
           <p className="text-xs text-rose-700 max-w-md mx-auto font-medium leading-relaxed">
-            This Local ATT document will be generated and printed with the official centered{' '}
-            <strong className="underline">NO CHED FUND INCURRED</strong> stamp. All expense items are zeroed out.
+            This {isLocal ? 'Local' : 'Travel Abroad'} ATT document will be generated and printed with the official centered{' '}
+            <strong className="underline">NO CHED FUND INCURRED</strong> stamp. All monetary allocations are zeroed out.
           </p>
           <div className="pt-2 text-2xs text-slate-500 font-semibold">
             Click "Put Expense Allocation" above if you wish to allocate monetary amounts instead.

@@ -18,7 +18,7 @@ export const createATTSchema = z.object({
   periodOfTravel: z.string().min(1, 'Period of travel is required'),
   officeStation: z.string().default('Commission on Higher Education - Central Office'),
   purpose: z.string().min(1, 'Purpose of travel is required'),
-  travelClassification: z.enum(['Official Business', 'Official Time Only', 'Personal Time']),
+  travelClassification: z.enum(['Official Business', 'Official Time Only', 'Personal Time', 'Personal Travel']),
   datePrepared: z.string().optional(),
   requestedBy: z
     .object({

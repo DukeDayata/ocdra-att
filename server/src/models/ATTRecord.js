@@ -180,7 +180,7 @@ const attRecordSchema = new mongoose.Schema(
     },
     travelClassification: {
       type: String,
-      enum: ['Official Business', 'Official Time Only', 'Personal Time'],
+      enum: ['Official Business', 'Official Time Only', 'Personal Time', 'Personal Travel'],
       required: [true, 'Travel classification is required']
     },
     datePrepared: {

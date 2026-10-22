@@ -160,7 +160,7 @@ How to export data from Google Sheets:
         periodOfTravel,
         officeStation,
         purpose,
-        travelClassification: ['Official Business', 'Official Time Only', 'Personal Time'].includes(travelClassification)
+        travelClassification: ['Official Business', 'Official Time Only', 'Personal Time', 'Personal Travel'].includes(travelClassification)
           ? travelClassification
           : 'Official Business',
         datePrepared: payload.datePrepared ? new Date(payload.datePrepared) : new Date(),
